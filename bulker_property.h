@@ -1,4 +1,4 @@
-#ifndef BULKERRPROPERTY
+#ifndef BULKERPROPERTY
 #define BULKERPROPERTY
 
 namespace bulker {

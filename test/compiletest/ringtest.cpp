@@ -1,15 +1,19 @@
 #include "../../ring_buffer.h"
 
 int main(){
-  bulker::ring_buffer<int,32,true> ring;
+  bulker::ring_buffer<int,34,true> ring;
 
-  for(int i = 0; i<34 ; i++){
+  for(int i = 0; i<30 ; i++){
     ring.push(i);
   }
 
-  for(int i = 0; i< 32 ; i++){
-  //  std::cout << *ring.pop() << std::endl;
-    auto k = *ring.pop();
+  ring.emergency_push(100);
+
+  for(int i = 0; i< 30 ; i++){
+
+    //std::cout << *ring.pop() << std::endl;
+    auto k = ring.pop();
+    if(k) std::cout << *k << std::endl;
   }
 
   return 0;
