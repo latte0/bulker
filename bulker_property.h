@@ -3,6 +3,11 @@
 
 namespace bulker {
 
+  template < class T, class Object,
+            T (Object::*real_getter)() const,
+            T (Object::*real_setter)(const T&) ,bool lock>
+  class Property{};
+
     template < class T, class Object,
               T (Object::*real_getter)() const,
               T (Object::*real_setter)(const T&) >
@@ -30,4 +35,3 @@ namespace bulker {
 }
 
 #endif // BULKERPROPERTY
-
