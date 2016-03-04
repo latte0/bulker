@@ -1,0 +1,12 @@
+#ifndef _VARIANT_
+#define _VARIANT_
+
+
+
+namespace bulker
+{
+namespace varinat{
+}
+
+}
+#endif
