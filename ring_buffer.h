@@ -53,11 +53,11 @@ public:
   std::exception_ptr pop_error;
 };
 
-template <class T, size_t Size, bool multi_thread, class Allocator = std::allocator<T>>
+template <class T, size_t Size, bool multi_thread, class Allocator = std::allocator<T>, bool exception_mode = false>
 class ring_buffer;
 
-template <class T, size_t Size, class Allocator>
-class ring_buffer<T,Size,true, Allocator>
+template <class T, size_t Size, class Allocator, bool exception_mode>
+class ring_buffer<T,Size,true, Allocator,exception_mode>
   : public ring_buffer_impl<T, Size, Allocator> {
 public:
   ring_buffer() : m_head(0), m_tail(0), ring_buffer_impl<T, Size, Allocator>(){}
@@ -84,7 +84,6 @@ public:
       ring_buffer_impl<T, Size, Allocator>::m_capacity++;
       return true;
     }catch (std::runtime_error e){
-      std::cout << e.what() << std::endl;
       return false;
     }
   }
@@ -101,7 +100,6 @@ public:
       ring_buffer_impl<T, Size, Allocator>::m_capacity++;
       return true;
     }catch (std::runtime_error e){
-      std::cout << e.what() << std::endl;
       return false;
     }
 
@@ -118,7 +116,6 @@ public:
       ring_buffer_impl<T, Size, Allocator>::m_capacity++;
       return true;
     }catch (std::runtime_error e){
-      std::cout << e.what() << std::endl;
       return false;
     }
   }
@@ -135,7 +132,6 @@ public:
       ring_buffer_impl<T, Size, Allocator>::m_capacity--;
       return std::optional<T>(value);
     }catch (std::runtime_error e){
-      std::cout << e.what() << std::endl;
       return std::optional<T>{};
     }
   }
@@ -148,8 +144,8 @@ private:
 };
 
 
-template <class T, size_t Size,class Allocator>
-class ring_buffer<T,Size,false,Allocator> {
+template <class T, size_t Size,class Allocator, bool exception_mode>
+class ring_buffer<T,Size,false,Allocator,exception_mode> {
 public:
   ring_buffer() : m_head(0), m_tail(0) {}
 
